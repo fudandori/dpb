@@ -1,0 +1,37 @@
+<div style="background-color: yellow;width: 100%;height: 100%;padding: 2%">
+  <button type="button" class="btn btn-icon" (click)="showCreation()">
+    <clr-icon shape="home"></clr-icon>
+  </button>
+
+  <div *ngFor="let entry of entries;let i = index" class="select-container">
+    <span>{{entry.label}}</span>
+    <div class="clr-select-wrapper">
+      <select class="clr-select">
+        <option *ngFor="let option of entry.options">{{option}}</option>
+      </select>
+    </div>
+    <button class="btn btn-sm option-button" (click)="showAddOption(i)">Add Option</button>
+  </div>
+
+  <clr-modal [(clrModalOpen)]="popCreation" [clrModalSize]="'sm'">
+    <h3 class="modal-title">New entry</h3>
+    <div class="modal-body">
+      <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="label">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" type="button" (click)="cancel()">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="newEntry()">Ok</button>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="popAddOption" [clrModalSize]="'sm'">
+    <h3 class="modal-title">New entry</h3>
+    <div class="modal-body">
+      <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="option">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" type="button" (click)="cancelAddOption()">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="newOption()">Ok</button>
+    </div>
+  </clr-modal>
+</div>
