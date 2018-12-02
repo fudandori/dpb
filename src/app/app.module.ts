@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BuilderComponent } from './builder/builder.component';
 import { DesignerComponent } from './designer/designer.component';
 import {FormsModule} from '@angular/forms';
+import {NgxElectronModule} from 'ngx-electron';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {FormsModule} from '@angular/forms';
     AppRoutingModule,
     ClarityModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    NgxElectronModule
   ],
   providers: [],
   bootstrap: [AppComponent]

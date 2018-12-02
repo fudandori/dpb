@@ -1,6 +1,13 @@
-<div style="background-color: yellow;width: 100%;height: 100%;padding: 2%">
+<div style="width: 100%;height: 100%;padding: 2%">
   <button type="button" class="btn btn-icon" (click)="showCreation()">
-    <clr-icon shape="home"></clr-icon>
+    <clr-icon shape="plus"></clr-icon>
+  </button>
+
+  <button style="float: right" type="button" class="btn btn-icon" (click)="showSave()">
+    <clr-icon shape="floppy"></clr-icon>
+  </button>
+  <button style="float: right" type="button" class="btn btn-icon" (click)="showLoad()">
+    <clr-icon shape="unarchive"></clr-icon>
   </button>
 
   <div *ngFor="let entry of entries;let i = index" class="select-container">
@@ -32,6 +39,35 @@
     <div class="modal-footer">
       <button class="btn btn-outline" type="button" (click)="cancelAddOption()">Cancel</button>
       <button class="btn btn-primary" type="button" (click)="newOption()">Ok</button>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="popSave" [clrModalSize]="'sm'">
+    <h3 class="modal-title">Save Template</h3>
+    <div class="modal-body">
+      <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="fileName">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" type="button" (click)="cancelSave()">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="save()">Ok</button>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="popLoad" [clrModalSize]="'sm'">
+    <h3 class="modal-title">Load Template</h3>
+    <div class="modal-body">
+      <div style="margin: 10px;">
+        <span>Select </span>
+        <div class="clr-select-wrapper">
+          <select class="clr-select" [(ngModel)]="selected">
+            <option *ngFor="let file of fileList" value="{{file}}">{{file}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" type="button" (click)="cancelLoad()">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="load()">Ok</button>
     </div>
   </clr-modal>
 </div>
