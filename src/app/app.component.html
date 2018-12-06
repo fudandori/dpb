@@ -1,28 +1,15 @@
-<div style="width: 100%;height: 100%;display: flex">
-  <div id="left-container" style="">
-
-    <div routerLink="/designer" class="card clickable" style="margin: 0">
-      <div class="card-img" style="padding: 10%">
-        <img src="assets/design.svg">
-      </div>
-      <div class="card-block" style="text-align: center">
-        <strong>DESIGNER</strong>
-      </div>
+<div id="main">
+  <div id="button-container">
+    <div class="button" routerLink="/designer">
+     BUTTON 1
     </div>
 
-    <div routerLink="/builder" class="card clickable" style="margin: 0">
-      <div class="card-img" style="padding: 10%">
-        <img src="assets/design.svg">
-      </div>
-      <div class="card-block" style="text-align: center">
-        <strong>BUILDER</strong>
-      </div>
+    <div class="button" routerLink="/builder">
+     BUTTON 2
     </div>
   </div>
 
-
-  <div id="right-container">
+  <div id="content">
     <router-outlet></router-outlet>
   </div>
-
 </div>

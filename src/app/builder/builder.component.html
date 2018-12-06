@@ -1,19 +1,21 @@
 <div id="page-container">
   <div id="button-container">
-    <button style="float: right" type="button" class="btn btn-icon" (click)="generatePDF()">
-      <clr-icon shape="floppy"></clr-icon>
-    </button>
-    <button style="float: right" type="button" class="btn btn-icon" (click)="showLoad()">
+    <button type="button" class="btn btn-icon" (click)="showLoad()">
       <clr-icon shape="unarchive"></clr-icon>
+    </button>
+    <button type="button" class="btn btn-icon" (click)="generatePDF()">
+      <clr-icon shape="floppy"></clr-icon>
     </button>
   </div>
 
-  <div *ngFor="let entry of entries;let i = index" class="select-container">
-    <span>{{entry.label}}</span>
-    <div class="clr-select-wrapper">
-      <select class="clr-select" [(ngModel)]="selectedOptions[i]">
-        <option *ngFor="let option of entry.options">{{option}}</option>
-      </select>
+  <div id="generated">
+    <div *ngFor="let entry of entries;let i = index" class="select-container">
+      <span>{{entry.label}}</span>
+      <div class="clr-select-wrapper">
+        <select class="clr-select" [(ngModel)]="selectedOptions[i]">
+          <option *ngFor="let option of entry.options">{{option}}</option>
+        </select>
+      </div>
     </div>
   </div>
 

@@ -10,6 +10,23 @@ span {
   margin-left: 2%;
 }
 
-.card-block {
+#generated {
+  overflow: auto;
+  flex: 0 1 auto;
+}
 
+#button-container {
+  display: flex;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+#create-button {
+  margin-right: auto;
+}
+
+#main-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }

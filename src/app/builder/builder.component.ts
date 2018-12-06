@@ -6,7 +6,7 @@ import {Helper} from '../objects/helper';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const A4_WIDTH = 210;
+const A4_WIDTH = 210, A4_HEIGHT = 297;
 
 @Component({
   selector: 'app-builder',
@@ -79,7 +79,9 @@ export class BuilderComponent implements OnInit {
     html2canvas(data).then(canvas => {
 
       const imgWidth = A4_WIDTH - 20;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let imgHeight = canvas.height * imgWidth / canvas.width;
+
+      imgHeight = imgHeight > A4_HEIGHT - 20 ? A4_HEIGHT - 20 : imgHeight;
 
       const contentDataURL = canvas.toDataURL('image/png');
 
