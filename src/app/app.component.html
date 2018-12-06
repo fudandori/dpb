@@ -1,8 +1,8 @@
 <div style="width: 100%;height: 100%;display: flex">
-  <div class="semicontainer" style="display: flex;flex-direction: column;align-content: space-evenly">
+  <div id="left-container" style="">
 
-    <div routerLink="/designer" class="card clickable" style="width: 45vmin;height: 45vmin;margin: 3vmin auto 1.5vmin">
-      <div class="card-img" style="width: 75%;height: 75%;margin: 0 auto;">
+    <div routerLink="/designer" class="card clickable" style="margin: 0">
+      <div class="card-img" style="padding: 10%">
         <img src="assets/design.svg">
       </div>
       <div class="card-block" style="text-align: center">
@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <div routerLink="/builder" class="card clickable" style="width: 45vmin;height: 45vmin;margin: 1.5vmin auto 3vmin;">
-      <div class="card-img" style="width: 75%;height: 75%;margin: 0 auto;">
+    <div routerLink="/builder" class="card clickable" style="margin: 0">
+      <div class="card-img" style="padding: 10%">
         <img src="assets/design.svg">
       </div>
       <div class="card-block" style="text-align: center">
@@ -21,7 +21,7 @@
   </div>
 
 
-  <div class="semicontainer">
+  <div id="right-container">
     <router-outlet></router-outlet>
   </div>
 

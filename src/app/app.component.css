@@ -1,6 +1,17 @@
-.semicontainer {
-  width: 50%;
+#left-container {
+  width: 20%;
   height: 100%;
+  padding: 2vh 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#right-container {
+  width: 80%;
+  height: 100%;
+  padding: 2vh 2vw;
+  overflow: auto;
 }
 
 strong {

@@ -9,6 +9,7 @@ import { BuilderComponent } from './builder/builder.component';
 import { DesignerComponent } from './designer/designer.component';
 import {FormsModule} from '@angular/forms';
 import {NgxElectronModule} from 'ngx-electron';
+import {Helper} from './objects/helper';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {NgxElectronModule} from 'ngx-electron';
     FormsModule,
     NgxElectronModule
   ],
-  providers: [],
+  providers: [Helper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

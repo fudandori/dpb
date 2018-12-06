@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
-import {Entry} from './entry';
-import {ElectronService} from 'ngx-electron';
+import {Entry} from '../objects/entry';
+import {Helper} from '../objects/helper';
 
-declare var os: any;
-declare var path: any;
 
 @Component({
   selector: 'app-designer',
@@ -21,27 +19,22 @@ export class DesignerComponent {
 
   label: string;
   option: string;
-  index: number;
+  position: number;
   fileName: string;
-  template: string;
   fileList = Array<string>();
   selected: string;
 
-  fs: any;
-  homeFolder: string;
+  constructor(private helper: Helper) {}
 
-  constructor(private electron: ElectronService) {
-    this.fs = electron.remote.require('fs');
-    this.homeFolder = os.homedir() + path.sep + 'dpb-templates' + path.sep;
-  }
 
-  newEntry() {
+  newEntry(close: boolean) {
     const entry = new Entry();
     entry.label = this.label;
     entry.options = Array<string>();
 
     this.entries.push(entry);
-    this.popCreation = false;
+    this.label = '';
+    this.popCreation = !close;
   }
 
   showCreation() {
@@ -50,22 +43,25 @@ export class DesignerComponent {
   }
 
   cancel() {
+    this.label = '';
     this.popCreation = false;
   }
 
   showAddOption(index: number) {
-    this.index = index;
+    this.position = index;
     this.option = '';
     this.popAddOption = true;
   }
 
   cancelAddOption() {
     this.popAddOption = false;
+    this.option = '';
   }
 
-  newOption() {
-    this.entries[this.index].options.push(this.option);
-    this.popAddOption = false;
+  newOption(close: boolean) {
+    this.entries[this.position].options.push(this.option);
+    this.option = '';
+    this.popAddOption = !close;
   }
 
   showSave() {
@@ -75,31 +71,24 @@ export class DesignerComponent {
 
   cancelSave() {
     this.popSave = false;
+    this.fileName = '';
   }
 
   save() {
-    const filePath = this.homeFolder + this.fileName;
-    const data = JSON.stringify(this.entries);
-
-    if (!this.fs.existsSync(this.homeFolder)) {
-      this.fs.mkdirSync(this.homeFolder);
-    }
-
-    this.fs.writeFileSync(filePath, data);
+    const saved = this.helper.save(this.fileName, this.entries);
+    const message = saved ? 'Template saved' : 'Could not save the template';
 
     this.popSave = false;
+    this.fileName = '';
+    alert(message);
   }
 
   showLoad() {
-    if (!this.fs.existsSync(this.homeFolder)) {
-      alert('There are no saved templates');
+    if (this.helper.existsSavedData()) {
+      this.fileList = this.helper.fileList();
+      this.popLoad = true;
     } else {
-      this.fileList = this.fs.readdirSync(this.homeFolder);
-      if (this.fileList.length === 0) {
-        alert('There are no saved templates');
-      } else {
-        this.popLoad = true;
-      }
+      alert('There are no saved templates');
     }
   }
 
@@ -108,10 +97,13 @@ export class DesignerComponent {
   }
 
   load() {
-    const filePath = this.homeFolder + this.selected;
+    const data = this.helper.load(this.selected);
 
-    const data = this.fs.readFileSync(filePath);
-    this.entries = JSON.parse(data);
-    this.popLoad = false;
+    try {
+      this.entries = JSON.parse(data);
+      this.popLoad = false;
+    } catch (e) {
+      alert('Could not load. File corrupted');
+    }
   }
 }

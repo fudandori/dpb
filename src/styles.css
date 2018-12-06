@@ -5,3 +5,15 @@ html, body{
   padding: 0;
   margin: 0;
 }
+
+::-webkit-scrollbar {
+  width: .25em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0079b8;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #004a70;
+}

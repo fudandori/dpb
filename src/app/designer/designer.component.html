@@ -20,25 +20,27 @@
     <button class="btn btn-sm option-button" (click)="showAddOption(i)">Add Option</button>
   </div>
 
-  <clr-modal [(clrModalOpen)]="popCreation" [clrModalSize]="'sm'">
+  <clr-modal [(clrModalOpen)]="popCreation">
     <h3 class="modal-title">New entry</h3>
     <div class="modal-body">
       <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="label">
     </div>
     <div class="modal-footer">
+      <button class="btn btn-outline" type="button" (click)="newEntry(false)">Apply</button>
       <button class="btn btn-outline" type="button" (click)="cancel()">Cancel</button>
-      <button class="btn btn-primary" type="button" (click)="newEntry()">Ok</button>
+      <button class="btn btn-primary" type="button" (click)="newEntry(true)">Ok</button>
     </div>
   </clr-modal>
 
-  <clr-modal [(clrModalOpen)]="popAddOption" [clrModalSize]="'sm'">
+  <clr-modal [(clrModalOpen)]="popAddOption">
     <h3 class="modal-title">New entry</h3>
     <div class="modal-body">
       <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="option">
     </div>
     <div class="modal-footer">
+      <button class="btn btn-primary" type="button" (click)="newOption(false)">Apply</button>
       <button class="btn btn-outline" type="button" (click)="cancelAddOption()">Cancel</button>
-      <button class="btn btn-primary" type="button" (click)="newOption()">Ok</button>
+      <button class="btn btn-primary" type="button" (click)="newOption(true)">Ok</button>
     </div>
   </clr-modal>
 

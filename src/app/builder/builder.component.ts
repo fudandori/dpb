@@ -1,6 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ElectronService} from 'ngx-electron';
 import SaveDialogOptions = Electron.SaveDialogOptions;
+import {Entry} from '../objects/entry';
+import {Helper} from '../objects/helper';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+const A4_WIDTH = 210;
 
 @Component({
   selector: 'app-builder',
@@ -9,51 +15,78 @@ import SaveDialogOptions = Electron.SaveDialogOptions;
 })
 export class BuilderComponent implements OnInit {
 
-  constructor(private electron: ElectronService) {
+  public entries = Array<Entry>();
+
+  popLoad: boolean;
+  fileList = Array<string>();
+  selected: string;
+  selectedOptions: Array<string>;
+
+  constructor(private electron: ElectronService, private helper: Helper) {
   }
 
   ngOnInit() {
-    const fs = this.electron.remote.require('fs');
+    /*const fs = this.electron.remote.require('fs');
     const dialog = this.electron.remote.dialog;
 
     const options: SaveDialogOptions = {
-        buttonLabel: 'Test Me',
-        title: 'Hello World.txt',
-        filters: [
-          {name: 'Text Files', extensions: ['txt', 'doc', 'docx', 'odt', 'pdf', 'rtf', 'tex']},
-          {name: 'Images', extensions: ['jpg', 'png', 'gif']},
-          {name: 'Movies', extensions: ['mkv', 'avi', 'mp4']},
-          {name: 'All Files', extensions: ['*']}
-        ]
-      }
-    ;
+      title: 'Generate PDF',
+      filters: [
+        {name: 'Text Files', extensions: ['txt', 'doc', 'docx', 'odt', 'pdf', 'rtf', 'tex']},
+        {name: 'Images', extensions: ['jpg', 'png', 'gif']},
+        {name: 'Movies', extensions: ['mkv', 'avi', 'mp4']},
+        {name: 'All Files', extensions: ['*']}
+      ]
+    };
+
     dialog.showSaveDialog(options, (fileName) => {
-      if (fileName === undefined) {
-        console.log('You didn\'t save the file');
-        return;
+      if (fileName !== undefined) {
+
+
       }
-
-      // fileName is a string that contains the path and filename created in the save file dialog.
-      fs.open(fileName, 'wx', (err, fd) => {
-        if (err) {
-          if (err.code === 'EEXIST') {
-            console.error('myfile already exists');
-            return;
-          }
-
-          throw err;
-        }
-
-        fs.writeFile(fd, 'Hellow World', (err2) => {
-          if (err2) {
-            alert('An error ocurred creating the file ' + err.message);
-          }
-
-          alert('The file has been succesfully saved');
-        });
-      });
-
-    });
+    });*/
   }
 
+  showLoad() {
+    if (this.helper.existsSavedData()) {
+      this.fileList = this.helper.fileList();
+      this.popLoad = true;
+    } else {
+      alert('There are no saved templates');
+    }
+  }
+
+  cancelLoad() {
+    this.popLoad = false;
+  }
+
+  load() {
+    const data = this.helper.load(this.selected);
+
+    try {
+      this.entries = JSON.parse(data);
+
+      this.selectedOptions = new Array<string>(this.entries.length);
+
+      this.popLoad = false;
+    } catch (e) {
+      alert('Could not load. File corrupted');
+    }
+  }
+
+  generatePDF() {
+    const data = document.getElementById('output');
+    html2canvas(data).then(canvas => {
+
+      const imgWidth = A4_WIDTH - 20;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+
+      const contentDataURL = canvas.toDataURL('image/png');
+
+      const doc = new jsPDF();
+
+      doc.addImage(contentDataURL, 'PNG', 10, 10, imgWidth, imgHeight);
+      doc.save('a4.pdf');
+    });
+  }
 }
