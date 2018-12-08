@@ -17,14 +17,15 @@ export class DesignerComponent {
   popSave = false;
   popLoad = false;
 
-  label: string;
-  option: string;
+  label = '';
+  option = '';
   position: number;
   fileName: string;
   fileList = Array<string>();
   selected: string;
 
-  constructor(private helper: Helper) {}
+  constructor(private helper: Helper) {
+  }
 
 
   newEntry(close: boolean) {

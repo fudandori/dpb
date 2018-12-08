@@ -13,7 +13,7 @@ const A4_WIDTH = 210, A4_HEIGHT = 297;
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.css']
 })
-export class BuilderComponent implements OnInit {
+export class BuilderComponent {
 
   public entries = Array<Entry>();
 
@@ -23,28 +23,6 @@ export class BuilderComponent implements OnInit {
   selectedOptions: Array<string>;
 
   constructor(private electron: ElectronService, private helper: Helper) {
-  }
-
-  ngOnInit() {
-    /*const fs = this.electron.remote.require('fs');
-    const dialog = this.electron.remote.dialog;
-
-    const options: SaveDialogOptions = {
-      title: 'Generate PDF',
-      filters: [
-        {name: 'Text Files', extensions: ['txt', 'doc', 'docx', 'odt', 'pdf', 'rtf', 'tex']},
-        {name: 'Images', extensions: ['jpg', 'png', 'gif']},
-        {name: 'Movies', extensions: ['mkv', 'avi', 'mp4']},
-        {name: 'All Files', extensions: ['*']}
-      ]
-    };
-
-    dialog.showSaveDialog(options, (fileName) => {
-      if (fileName !== undefined) {
-
-
-      }
-    });*/
   }
 
   showLoad() {

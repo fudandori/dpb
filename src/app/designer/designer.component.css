@@ -13,6 +13,7 @@ span {
 #generated {
   overflow: auto;
   padding: 10px;
+  flex: 1;
 }
 
 .drop-shadow {
