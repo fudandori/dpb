@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-html, body{
+html, body {
   height: 100%;
   width: 100%;
   padding: 0;
@@ -7,7 +7,7 @@ html, body{
 }
 
 ::-webkit-scrollbar {
-  width: .25em;
+  width: .45em;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -15,6 +15,10 @@ html, body{
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #004a70;
+  background: #00ffd6;
 
+}
+
+*:focus {
+  outline: none;
 }

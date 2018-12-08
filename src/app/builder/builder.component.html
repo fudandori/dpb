@@ -8,41 +8,41 @@
     </button>
   </div>
 
-  <div id="generated">
-    <div *ngFor="let entry of entries;let i = index" class="select-container">
-      <span>{{entry.label}}</span>
-      <div class="clr-select-wrapper">
-        <select class="clr-select" [(ngModel)]="selectedOptions[i]">
+  <div id="content">
+    <div id="generated" [ngClass]="{'drop-shadow': entries.length > 0}">
+      <clr-select-container *ngFor="let entry of entries;let i = index">
+        <label>{{entry.label}}</label>
+        <select clrSelect name="options" [(ngModel)]="selectedOptions[i]">
           <option *ngFor="let option of entry.options">{{option}}</option>
+        </select>
+      </clr-select-container>
+    </div>
+
+    <div id="table-container" [ngClass]="{'drop-shadow': entries.length > 0}">
+      <table id="output">
+        <tr *ngFor="let entry of entries;let i = index">
+          <td>{{entry.label}}</td>
+          <td>{{selectedOptions[i]}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<clr-modal [(clrModalOpen)]="popLoad" [clrModalSize]="'sm'">
+  <h3 class="modal-title">Load Template</h3>
+  <div class="modal-body">
+    <div style="margin: 10px;">
+      <span>Select </span>
+      <div class="clr-select-wrapper">
+        <select class="clr-select" [(ngModel)]="selected">
+          <option *ngFor="let file of fileList" value="{{file}}">{{file}}</option>
         </select>
       </div>
     </div>
   </div>
-
-  <clr-modal [(clrModalOpen)]="popLoad" [clrModalSize]="'sm'">
-    <h3 class="modal-title">Load Template</h3>
-    <div class="modal-body">
-      <div style="margin: 10px;">
-        <span>Select </span>
-        <div class="clr-select-wrapper">
-          <select class="clr-select" [(ngModel)]="selected">
-            <option *ngFor="let file of fileList" value="{{file}}">{{file}}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" type="button" (click)="cancelLoad()">Cancel</button>
-      <button class="btn btn-primary" type="button" (click)="load()">Ok</button>
-    </div>
-  </clr-modal>
-
-  <div id="table-container">
-    <table id="output">
-      <tr *ngFor="let entry of entries;let i = index">
-        <td>{{entry.label}}</td>
-        <td>{{selectedOptions[i]}}</td>
-      </tr>
-    </table>
+  <div class="modal-footer">
+    <button class="btn btn-outline" type="button" (click)="cancelLoad()">Cancel</button>
+    <button class="btn btn-primary" type="button" (click)="load()">Ok</button>
   </div>
-</div>
+</clr-modal>

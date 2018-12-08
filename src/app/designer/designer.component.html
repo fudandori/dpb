@@ -12,7 +12,7 @@
     </button>
   </div>
 
-  <div id="generated">
+  <div id="generated" [ngClass]="{'drop-shadow': entries.length > 0}">
     <div *ngFor="let entry of entries;let i = index" class="select-container">
       <span>{{entry.label}}</span>
       <div class="clr-select-wrapper">
@@ -30,9 +30,9 @@
       <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="label">
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" type="button" (click)="newEntry(false)">Apply</button>
+      <button class="btn btn-outline" type="button" (click)="newEntry(false)" [disabled]="!(label.length > 0)">Apply</button>
       <button class="btn btn-outline" type="button" (click)="cancel()">Cancel</button>
-      <button class="btn btn-primary" type="button" (click)="newEntry(true)">Ok</button>
+      <button class="btn btn-primary" type="button" (click)="newEntry(true)" [disabled]="!(label.length > 0)">Ok</button>
     </div>
   </clr-modal>
 
@@ -42,9 +42,9 @@
       <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="option">
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" type="button" (click)="newOption(false)">Apply</button>
+      <button class="btn btn-primary" type="button" (click)="newOption(false)" [disabled]="!(option.length > 0)">Apply</button>
       <button class="btn btn-outline" type="button" (click)="cancelAddOption()">Cancel</button>
-      <button class="btn btn-primary" type="button" (click)="newOption(true)">Ok</button>
+      <button class="btn btn-primary" type="button" (click)="newOption(true)" [disabled]="!(option.length > 0)">Ok</button>
     </div>
   </clr-modal>
 
