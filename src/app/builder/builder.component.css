@@ -24,7 +24,7 @@ td {
   flex-direction: column;
 }
 
-#button-container {
+#header {
   display: flex;
   justify-content: flex-end;
   flex: 0 0 auto;
@@ -58,5 +58,22 @@ td {
 .clr-select-wrapper {
   padding-left: 1.5em;
 }
+
+#title-container {
+  flex-grow: 1;
+  text-align: center;
+}
+
+#title {
+  width: 50%;
+  text-align: center;
+}
+
+.exporting {
+  width: 1000px;
+  height: 1000px;
+  font-size: 30px;
+}
+
 
 

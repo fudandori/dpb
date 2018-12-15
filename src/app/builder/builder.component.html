@@ -1,5 +1,9 @@
 <div id="page-container">
-  <div id="button-container">
+  <div id="header">
+    <div id="title-container">
+      <label for="title"></label>
+      <input id="title" type="text" placeholder="Title (optional)" class="clr-input" [(ngModel)]="title">
+    </div>
     <button type="button" class="btn btn-icon" (click)="showLoad()">
       <clr-icon shape="unarchive"></clr-icon>
     </button>
@@ -20,6 +24,9 @@
 
     <div id="table-container" [ngClass]="{'drop-shadow': entries.length > 0}">
       <table id="output">
+        <tr *ngIf="title.length > 0">
+          <td colspan="2"><strong>{{title}}</strong></td>
+        </tr>
         <tr *ngFor="let entry of entries;let i = index">
           <td>{{entry.label}}</td>
           <td>{{selectedOptions[i]}}</td>

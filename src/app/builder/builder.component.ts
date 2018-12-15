@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ElectronService} from 'ngx-electron';
-import SaveDialogOptions = Electron.SaveDialogOptions;
 import {Entry} from '../objects/entry';
 import {Helper} from '../objects/helper';
 import * as jsPDF from 'jspdf';
@@ -15,9 +14,10 @@ const A4_WIDTH = 210, A4_HEIGHT = 297;
 })
 export class BuilderComponent {
 
-  public entries = Array<Entry>();
-
+  entries = Array<Entry>();
+  title = '';
   popLoad: boolean;
+  exporting = false;
   fileList = Array<string>();
   selected: string;
   selectedOptions: Array<string>;
@@ -53,8 +53,15 @@ export class BuilderComponent {
   }
 
   generatePDF() {
+
     const data = document.getElementById('output');
+    data.style.width = '1080px';
+    data.style.fontSize = '100%';
+
+
     html2canvas(data).then(canvas => {
+      data.style.width = 'initial';
+      data.style.fontSize = '2vw';
 
       const imgWidth = A4_WIDTH - 20;
       let imgHeight = canvas.height * imgWidth / canvas.width;
