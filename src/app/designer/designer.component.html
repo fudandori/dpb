@@ -20,7 +20,11 @@
           <option *ngFor="let option of entry.options">{{option}}</option>
         </select>
       </div>
-      <button class="btn btn-sm option-button" (click)="showAddOption(i)">Add Option</button>
+      <div class="btn-group btn-outline-primary btn-sm option-button">
+        <button class="btn" (click)="showAddOption(i)">Add Option</button>
+        <button class="btn" (click)="edit(i)">Rename</button>
+        <button class="btn" (click)="showRemove(i)">Remove Options</button>
+      </div>
     </div>
   </div>
 
@@ -30,9 +34,25 @@
       <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="label">
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" type="button" (click)="newEntry(false)" [disabled]="!(label.length > 0)">Apply</button>
+      <button class="btn btn-outline" type="button" (click)="newEntry(false)" [disabled]="!(label.length > 0)">Apply
+      </button>
       <button class="btn btn-outline" type="button" (click)="cancel()">Cancel</button>
-      <button class="btn btn-primary" type="button" (click)="newEntry(true)" [disabled]="!(label.length > 0)">Ok</button>
+      <button class="btn btn-primary" type="button" (click)="newEntry(true)" [disabled]="!(label.length > 0)">Ok
+      </button>
+    </div>
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="popEdit">
+    <h3 class="modal-title">New entry</h3>
+    <div class="modal-body">
+      <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="editLabel">
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-outline" type="button" (click)="cancelEdit()">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="confirmEdit()" [disabled]="editLabel.length < 1">
+        Ok
+      </button>
     </div>
   </clr-modal>
 
@@ -42,9 +62,11 @@
       <input type="text" placeholder="Label" class="clr-input" [(ngModel)]="option">
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" type="button" (click)="newOption(false)" [disabled]="!(option.length > 0)">Apply</button>
+      <button class="btn btn-primary" type="button" (click)="newOption(false)" [disabled]="!(option.length > 0)">Apply
+      </button>
       <button class="btn btn-outline" type="button" (click)="cancelAddOption()">Cancel</button>
-      <button class="btn btn-primary" type="button" (click)="newOption(true)" [disabled]="!(option.length > 0)">Ok</button>
+      <button class="btn btn-primary" type="button" (click)="newOption(true)" [disabled]="!(option.length > 0)">Ok
+      </button>
     </div>
   </clr-modal>
 
@@ -76,4 +98,16 @@
       <button class="btn btn-primary" type="button" (click)="load()">Ok</button>
     </div>
   </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="popRemove">
+    <h3 class="modal-title">Remove Options</h3>
+    <div class="modal-body">
+      <span>Do you really want to remove all options from {{removeLabel}}</span>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" type="button" (click)="cancelRemove()">Cancel</button>
+      <button class="btn btn-primary" type="button" (click)="remove()">Ok</button>
+    </div>
+  </clr-modal>
+
 </div>

@@ -16,9 +16,16 @@ export class DesignerComponent {
   popAddOption = false;
   popSave = false;
   popLoad = false;
+  popEdit = false;
+  popRemove = false;
+
+  editIndex: number;
+  removeIndex: number;
+  removeLabel: string;
 
   label = '';
   option = '';
+  editLabel = '';
   position: number;
   fileName: string;
   fileList = Array<string>();
@@ -106,5 +113,35 @@ export class DesignerComponent {
     } catch (e) {
       alert('Could not load. File corrupted');
     }
+  }
+
+  edit(index: number) {
+    this.editLabel = this.entries[index].label;
+    this.editIndex = index;
+    this.popEdit = true;
+  }
+
+  cancelEdit() {
+    this.popEdit = false;
+  }
+
+  confirmEdit() {
+    this.entries[this.editIndex].label = this.editLabel;
+    this.popEdit = false;
+  }
+
+  showRemove(index: number) {
+    this.removeLabel = this.entries[index].label;
+    this.removeIndex = index;
+    this.popRemove = true;
+  }
+
+  cancelRemove() {
+    this.popRemove = false;
+  }
+
+  remove() {
+    this.entries[this.removeIndex].options = [];
+    this.popRemove = false;
   }
 }
